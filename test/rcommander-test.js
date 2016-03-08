@@ -9,6 +9,13 @@ describe('runCommandFile', () => {
         expect(result.stdout).to.contain('rcommander test')
       })
   )
+
+  it('should run the command file against the DSN', () =>
+    runCommandFile('test/fixtures/rrbyw18.rmd', {dsn: 'rrbyw18'})
+      .then(result => {
+        expect(result.stdout).to.contain('CustID')
+      })
+  )
 })
 
 describe('runCommand', () => {
@@ -16,6 +23,13 @@ describe('runCommand', () => {
     runCommand('PAUSE 2 USING \'rcommander test\'')
       .then(result => {
         expect(result.stdout).to.contain('rcommander test')
+      })
+  )
+
+  it('should run the command against the DSN', () =>
+    runCommand('SELECT * FROM Customer', {dsn: 'rrbyw18'})
+      .then(result => {
+        expect(result.stdout).to.contain('CustID')
       })
   )
 })
